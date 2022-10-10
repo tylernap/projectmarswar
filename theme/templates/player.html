@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title%}{{ player.name }} - Project Mars War{% endblock %}
+
+{% block data %}
+<div class="container py-8 mx-auto flex justify-center min-h-screen">
+    <div class="col-span-12">
+        <div class="overflow-auto lg:overflow-visible">
+            <h1 class="text-5xl font-bold py-4 text-center">{{ player.name }}</h1>
+            <div class="py-4">
+                <h2 class="text-xl text-center">Rank:</h2>
+                <h3 class="text-5xl font-bold text-center">{{ player.rank }}</h3>
+            </div>
+            <div class="py-4">
+                <h2 class="text-xl text-center">Record:</h2>
+                <h3 class="text-5xl font-bold text-center">{{player.wins}}-{{player.losses}}-{{player.draws}} ({{player.get_record_percentage}}%)</h3>
+            </div>
+            <table class="table-auto">
+                <thead class="bg-gray-800 text-gray-200">
+                    <tr>
+                        <th class="p-3 text-left border border-slate-600">Tournament</th>
+                        <th class="p-3 text-left border border-slate-600">Bracket</th>
+                        <th class="p-3 text-left border border-slate-600">Player 1</th>
+                        <th class="p-3 text-left border border-slate-600">Score</th>
+                        <th class="p-3 text-left border border-slate-600">Score</th>
+                        <th class="p-3 text-left border border-slate-600">Player 2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for match in matches %}
+                    <tr class="{% if match.winner == player %}win{% else %}loss{% endif %}">
+                        <td class="p-1 border border-slate-600">{{ match.bracket.tournament.name }}</td>
+                        <td class="p-1 border border-slate-600">{{ match.bracket.name }}</td>
+                        <td class="p-1 border border-slate-600">{{ match.player1.name }}</td>
+                        <td class="p-1 border border-slate-600">{{ match.player1_score }}</td>
+                        <td class="p-1 border border-slate-600">{{ match.player2_score }}</td>
+                        <td class="p-1 border border-slate-600">{{ match.player2.name }}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="{% static 'css/dist/ranktable.css' %}">
+{% endblock %}

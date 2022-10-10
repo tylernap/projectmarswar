@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Rankings - Project Mars War{% endblock %}
+
+{% block data %}
+<div class="container py-8 mx-auto flex items-center justify-center min-h-screen">
+  <div class="col-span-12">
+    <div class="overflow-auto lg:overflow-visible">
+      <h1 class="text-5xl font-bold py-4" style="text-align: center;">Rankings</h1>
+      <div class="flex items-center pb-3">
+        <input id="show-unranked" type="checkbox" onclick="showUnranked()" class="w-4 h-4 text-gray-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2">
+        <label for="show-unranked" class="ml-2 text-sm font-medium text-gray-900">Show unranked players</label>
+      </div>
+      <table class="text-gray-400 border-separate border-slate-500">
+        <thead class="bg-gray-800 text-gray-200">
+          <tr>
+            <th class="p-3 text-left border border-slate-600">Rank</th>
+            <th class="p-3 text-left border border-slate-600">Name</th>
+            <th class="p-3 text-left border border-slate-600">Rating</th>
+            <th class="p-3 text-left border border-slate-600">Record</th>
+            <th class="p-3 text-left border border-slate-600">Life4 Rank</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for player in players %}
+            <tr class="{% if player.0.rank == -1 %}unranked hidden {% endif %}{% if player.0.rank == 1 %}first-place text-white{% elif player.0.rank == 2 %}second-place text-white{% elif player.0.rank == 3 %}third-place text-white{% else %}other-place{% endif %}">
+                <td class="p-3 font-bold border border-slate-600">{% if player.0.rank == -1 %}--{% else %}{{ player.0.rank }}{% endif %}</td>
+                <td class="p-3 border border-slate-600"><a href="/players/{{player.0.id}}">{{ player.0.name }}</a></td>
+                <td class="p-3 border border-slate-600">{% if player.0.rank == -1 %}--{% else %}{{ player.0.rating }}{% endif %}</td>
+                <td class="p-3 border border-slate-600">{{ player.0.wins }}-{{ player.0.losses }}-{{ player.0.draws }}</td>
+                <td class="p-3 border border-slate-600 l4-rank {{ player.1 }}">
+                {% if player.0.life4_rank %}{{ player.0.life4_rank }}{% endif %}
+                </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<link rel="stylesheet" href="{% static 'css/dist/ranktable.css' %}">
+<script>
+  function showUnranked() {
+    var checkbox = document.getElementById("show-unranked");
+    var unrankedPlayers = document.getElementsByClassName("unranked");
+    if (checkbox.checked == true) {
+      for (let i=0; i<unrankedPlayers.length; i++) {
+        if (unrankedPlayers[i].classList.contains("hidden")) {
+          unrankedPlayers[i].classList.remove("hidden");
+        } else {
+          unrankedPlayers[i].classList.add("hidden");
+        }
+      }
+    } else {
+      for (let i=0; i<unrankedPlayers.length; i++) {
+        unrankedPlayers[i].classList.add("hidden");
+      }
+    }
+  }
+
+</script>
+
+{% endblock %}
