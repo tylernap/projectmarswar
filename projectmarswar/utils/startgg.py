@@ -6,6 +6,7 @@ from typing import Callable
 import dotenv
 import pysmashgg
 
+
 dotenv.load_dotenv()
 API_TOKEN = os.getenv("STARTGG_API_TOKEN")
 smash = pysmashgg.SmashGG(API_TOKEN, True)

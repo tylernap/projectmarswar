@@ -35,6 +35,7 @@ class Tournament(models.Model):
 
 class Bracket(models.Model):
     id = models.CharField(max_length=20, primary_key=True)
+    event_name = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
 

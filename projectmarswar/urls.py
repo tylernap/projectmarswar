@@ -18,12 +18,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, re_path, include
 
-from projectmarswar.views import rankings
+from projectmarswar.views import rankings, tournaments
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('players/', rankings.rankings_view),
     path('players/<int:player>/', rankings.player_view),
+    path('tournaments/', tournaments.tournaments_view),
+    path('tournaments/<int:tournament>/', tournaments.tournament_details_view),
     path('__reload__', include("django_browser_reload.urls")),
     re_path(r'^', include('cms.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -80,11 +80,13 @@ class Command(BaseCommand):
 
             # Make Bracket objects
             for tournament in Tournament.objects.all():
-                for brackets, name in startgg.get_brackets_from_tournament(tournament):
+                for brackets, event_name in startgg.get_brackets_from_tournament(tournament):
                     for bracket in brackets:
                         bracket_obj, created = Bracket.objects.get_or_create(
                             id=bracket,
-                            name=name,
+                            event_name=event_name,
+                            # TODO: Change this to get the actual bracket name
+                            name=event_name,
                             tournament=tournament
                         )
                         if created:

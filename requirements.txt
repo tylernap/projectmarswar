@@ -13,6 +13,6 @@ djangocms-text-ckeditor
 djangocms-video
 psycopg2
 pychallonge
-python-dotenv
 pysmashgg
 tabulate
+django-environ

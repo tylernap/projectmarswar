@@ -24,7 +24,7 @@ def rankings_view(request):
         for player in filtered_players
     ]
     content = {"players": ranked_players}
-    return render(request, "rankings.html", content)
+    return render(request, "players/rankings.html", content)
 
 
 def player_view(request, player):
@@ -34,4 +34,4 @@ def player_view(request, player):
         "player": player_obj,
         "matches": matches,
     }
-    return render(request, "player.html", content)
+    return render(request, "players/player.html", content)
