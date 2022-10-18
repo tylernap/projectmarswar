@@ -33,7 +33,7 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = env.bool("DEBUG")
 
 if not DEBUG:
-    ALLOWED_HOSTS = ['localhost']
+    ALLOWED_HOSTS = ['localhost', 'marswar.xyz']
 
 # Application definition
 
