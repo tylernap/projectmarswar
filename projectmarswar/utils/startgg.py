@@ -3,12 +3,12 @@ import os
 import time
 from typing import Callable
 
-import dotenv
+import environ
 import pysmashgg
 
 
-dotenv.load_dotenv()
-API_TOKEN = os.getenv("STARTGG_API_TOKEN")
+env = environ.Env()
+API_TOKEN = env("STARTGG_API_TOKEN")
 smash = pysmashgg.SmashGG(API_TOKEN, True)
 
 # TODO: These game IDs were obtained manually through a graphql query to start.gg
