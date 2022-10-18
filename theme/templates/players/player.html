@@ -56,7 +56,7 @@
         </div>
     </div>
 </div>
-<link rel="stylesheet" href="{% static 'css/dist/ranktable.css' %}">
+<link rel="stylesheet" href="{% static 'css/ranktable.css' %}">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const labels = Array.from({length: {{ rating_data | length }}}, (x, i) => i+1);

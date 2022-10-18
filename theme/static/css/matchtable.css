@@ -1,0 +1,25 @@
+div.dataTables_filter input {
+    color: rgb(156 163 175 / var(--tw-text-opacity)) !important;
+    background-color: rgb(17 24 39) !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    color: #fff !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    color: #fff !important;
+}
+
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_processing,
+.dataTables_wrapper .dataTables_paginate {
+  color: #fff !important;
+}
+
+select {
+    background-color: rgb(17 24 39) !important;
+    padding-right: 2rem !important;
+}

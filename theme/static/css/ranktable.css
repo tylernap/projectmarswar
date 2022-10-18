@@ -1,0 +1,443 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
+/* Google fonts - Open Sans */
+
+td.win {
+	background-color:rgba(0, 247, 53, 0.4);
+	transition-timing-function: ease-in-out;
+	transition-duration: 200ms;
+}
+
+td.win:hover {
+	background-color:rgba(0, 247, 53, 0.5);
+	transition-timing-function: ease-in-out;
+	transition-duration: 200ms;
+}
+
+td.loss {
+	background-color:rgba(207, 87, 50, 0.4);
+	transition-timing-function: ease-in-out;
+	transition-duration: 200ms;
+}
+
+td.loss:hover {
+	background-color:rgba(207, 87, 50, 0.5);
+	transition-timing-function: ease-in-out;
+	transition-duration: 200ms;
+}
+
+tr.win {
+	background-color:rgba(0, 247, 53, 0.4);
+	transition-timing-function: ease-in-out;
+	transition-duration: 200ms;
+}
+
+tr.win:hover {
+	background-color:rgba(0, 247, 53, 0.5);
+	transition-timing-function: ease-in-out;
+	transition-duration: 200ms;
+}
+
+tr.loss {
+	background-color:rgba(207, 87, 50, 0.4);
+	transition-timing-function: ease-in-out;
+	transition-duration: 200ms;
+}
+
+tr.loss:hover {
+	background-color:rgba(207, 87, 50, 0.5);
+	transition-timing-function: ease-in-out;
+	transition-duration: 200ms;
+}
+
+tr.first-place {
+	background-color: rgba(219, 216, 40, 0.4);
+	transition-timing-function: ease-in-out;
+	transition-duration: 200ms;
+}
+tr.first-place:hover {
+	background-color: rgba(219, 216, 40, 0.5);
+	transition-timing-function: ease-in-out;
+	transition-duration: 200ms;
+}
+tr.second-place {
+	background-color: rgba(220, 220, 220, 0.4);
+	transition-timing-function: ease-in-out;
+	transition-duration: 200ms;
+}
+tr.second-place:hover {
+	background-color: rgba(220, 220, 220, 0.5);
+	transition-timing-function: ease-in-out;
+	transition-duration: 200ms;
+}
+tr.third-place {
+	background-color: rgba(205, 127, 50, 0.4);
+	transition-timing-function: ease-in-out;
+	transition-duration: 200ms;
+}
+tr.third-place:hover {
+	background-color: rgba(205, 127, 50, 0.5);
+	transition-timing-function: ease-in-out;
+	transition-duration: 200ms;
+}
+
+/* L4 icon content */
+.l4-rank::before {
+	content: " ";
+	background-size: 16px 16px;
+	background-repeat: no-repeat;
+	padding-right: 16px;
+	width: 16px;
+	height: 16px;
+	margin-right: 5px;
+	margin-top: -2px;
+}
+
+.w1::before {
+	background-image: url("/static/rankimg/w1.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.w2::before {
+	background-image: url("/static/rankimg/w2.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.w3::before {
+	background-image: url("/static/rankimg/w3.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.w4::before {
+	background-image: url("/static/rankimg/w4.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.w5::before {
+	background-image: url("/static/rankimg/w5.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.b1::before {
+	background-image: url("/static/rankimg/b1.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.b2::before {
+	background-image: url("/static/rankimg/b2.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.b3::before {
+	background-image: url("/static/rankimg/b3.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.b4::before {
+	background-image: url("/static/rankimg/b4.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.b5::before {
+	background-image: url("/static/rankimg/b5.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.s1::before {
+	background-image: url("/static/rankimg/s1.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.s2::before {
+	background-image: url("/static/rankimg/s2.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.s3::before {
+	background-image: url("/static/rankimg/s3.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.s4::before {
+	background-image: url("/static/rankimg/s4.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.s5::before {
+	background-image: url("/static/rankimg/s5.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.g1::before {
+	background-image: url("/static/rankimg/g1.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.g2::before {
+	background-image: url("/static/rankimg/g2.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.g3::before {
+	background-image: url("/static/rankimg/g3.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.g4::before {
+	background-image: url("/static/rankimg/g4.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.g5::before {
+	background-image: url("/static/rankimg/g5.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.p1::before {
+	background-image: url("/static/rankimg/p1.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.p2::before {
+	background-image: url("/static/rankimg/p2.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.p3::before {
+	background-image: url("/static/rankimg/p3.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.p4::before {
+	background-image: url("/static/rankimg/p4.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.p5::before {
+	background-image: url("/static/rankimg/p5.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.d1::before {
+	background-image: url("/static/rankimg/d1.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.d2::before {
+	background-image: url("/static/rankimg/d2.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.d3::before {
+	background-image: url("/static/rankimg/d3.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.d4::before {
+	background-image: url("/static/rankimg/d4.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.d5::before {
+	background-image: url("/static/rankimg/d5.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.c1::before {
+	background-image: url("/static/rankimg/c1.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.c2::before {
+	background-image: url("/static/rankimg/c2.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.c3::before {
+	background-image: url("/static/rankimg/c3.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.c4::before {
+	background-image: url("/static/rankimg/c4.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.c5::before {
+	background-image: url("/static/rankimg/c5.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.a1::before {
+	background-image: url("/static/rankimg/a1.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.a2::before {
+	background-image: url("/static/rankimg/a2.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.a3::before {
+	background-image: url("/static/rankimg/a3.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.a4::before {
+	background-image: url("/static/rankimg/a4.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.a5::before {
+	background-image: url("/static/rankimg/a5.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.e1::before {
+	background-image: url("/static/rankimg/e1.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.e2::before {
+	background-image: url("/static/rankimg/e2.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.e3::before {
+	background-image: url("/static/rankimg/e3.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.e4::before {
+	background-image: url("/static/rankimg/e4.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.e5::before {
+	background-image: url("/static/rankimg/e5.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.o1::before {
+	background-image: url("/static/rankimg/o1.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.o2::before {
+	background-image: url("/static/rankimg/o2.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.o3::before {
+	background-image: url("/static/rankimg/o3.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.o4::before {
+	background-image: url("/static/rankimg/o4.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.o5::before {
+	background-image: url("/static/rankimg/o5.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
