@@ -8,6 +8,9 @@ fi
 
 python manage.py initiate_player_data -a -l -c 5
 python manage.py adjust_ranks -c 5
+
+python manage.py tailwind install
+python manage.py tailwind build
 python manage.py collectstatic
 
 gunicorn projectmarswar.wsgi --bind 0.0.0.0:8080 --workers 3

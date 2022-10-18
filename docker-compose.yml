@@ -10,8 +10,8 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
       - ./staticfiles/:/static
-      - ./certbot/www:/var/www/certbot/:ro
-      - ./certbot/conf/:/etc/nginx/ssl/:ro
+      - ../certbot/www:/var/www/certbot/:ro
+      - ../certbot/conf/:/etc/nginx/ssl/:ro
     depends_on:
       - web
   web:
@@ -29,11 +29,13 @@ services:
     image: postgres
     container_name: "marswar-db"
     volumes:
-      - ./data/db-local/:/var/lib/postgresql/data
+      - ../data/db/:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
   certbot:
     image: certbot/certbot:latest
     volumes:
-      - ./certbot/www/:/var/www/certbot/:rw
-      - ./certbot/conf/:/etc/letsencrypt/:rw
-    depends_on:
-      - nginx
+      - ../certbot/www/:/var/www/certbot/:rw
+      - ../certbot/conf/:/etc/letsencrypt/:rw

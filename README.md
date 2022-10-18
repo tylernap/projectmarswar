@@ -48,16 +48,16 @@ This will compare everyones ratings and assign a rank to players. `-c 5` is for 
 ## Deploying
 If you have a server available to run things from, you can use the included `docker-compose.yml` file to do so with Docker. 
 ```
-docker-compose up -d
+docker-compose up
 ```
-This will stand up everything but does not start the HTTPS server or create the certificate
+This will stand up everything but does not start the HTTPS server or create the certificate. While django populates player data, create the cert in another session
 
 #### Certificate creation
 Next we will need to create a certificate to enable the HTTPS portion of the server. Replace the angle bracket part with your website name:
 ```
 docker-compose run --rm  certbot certonly --webroot --webroot-path /var/www/certbot/ -d <example.org>
 ```
-This will get a cert and put it in the location that nginx will look for. After this is done, open up the `nginx.conf` and uncomment the HTTPS portion of the config. Then, restart the containers
+This will get a cert and put it in the location that nginx will look for. After this is done, open up the `nginx.conf` and uncomment the HTTPS portion of the config. Then, restart the nginx container.
 ```
-docker-compose restart
+docker-compose restart nginx
 ```
