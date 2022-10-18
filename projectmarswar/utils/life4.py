@@ -1,7 +1,7 @@
 import json
 import os
 
-import dotenv
+import environ
 import requests
 from requests.auth import HTTPBasicAuth
 
@@ -78,10 +78,10 @@ RANKS_TO_IMAGE = {
     "Onyx V": "o5",
 }
 
+env = environ.Env()
 
-dotenv.load_dotenv()
-LIFE4_USER = os.getenv("LIFE4_USER")
-LIFE4_PASSWORD = os.getenv("LIFE4_PASSWORD")
+LIFE4_USER = env("LIFE4_USER")
+LIFE4_PASSWORD = env("LIFE4_PASSWORD")
 
 RANK_TO_RATINGS = {
     "Copper": 200,

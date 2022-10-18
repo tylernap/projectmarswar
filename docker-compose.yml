@@ -8,13 +8,12 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d:ro
+      - ./nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
       - ./staticfiles/:/static
       - ./certbot/www:/var/www/certbot/:ro
       - ./certbot/conf/:/etc/nginx/ssl/:ro
     depends_on:
       - web
-      - certbot
   web:
     build: .
     container_name: "marswar"
@@ -29,8 +28,12 @@ services:
   db:
     image: postgres
     container_name: "marswar-db"
+    volumes:
+      - ./data/db-local/:/var/lib/postgresql/data
   certbot:
     image: certbot/certbot:latest
     volumes:
       - ./certbot/www/:/var/www/certbot/:rw
       - ./certbot/conf/:/etc/letsencrypt/:rw
+    depends_on:
+      - nginx

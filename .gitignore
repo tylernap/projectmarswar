@@ -1,5 +1,6 @@
 # Project Mars War based things to ignore #
 data/
+certbot/
 
 # Django #
 *.log
