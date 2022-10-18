@@ -10,7 +10,14 @@
             <h1 class="text-5xl font-bold py-4 text-center">{{ player.name }}</h1>
             <div class="py-4">
                 <h2 class="text-xl text-center">Rank:</h2>
-                <h3 class="text-5xl font-bold text-center">{{ player.rank }}</h3>
+                <h1 class="text-5xl font-bold text-center">{% if player.rank == -1 %}Unranked{% else %}{{ player.rank }}{% endif %}</h3>
+            </div>
+            <div class="py-4">
+                <h2 class="text-xl text-center">Rating:</h2>
+                <h1 class="text-5xl font-bold text-center">{{ player.rating }}</h1> 
+                <div class="shadow-lg rounded-lg overflow-hidden">
+                    <canvas class="p-10" id="chart"></canvas>
+                </div>
             </div>
             <div class="py-4">
                 <h2 class="text-xl text-center">Record:</h2>
@@ -19,6 +26,7 @@
             <table class="table-auto">
                 <thead class="bg-gray-800 text-gray-200">
                     <tr>
+                        <th class="p-3 text-left border border-slate-600">Match ID</th>
                         <th class="p-3 text-left border border-slate-600">Tournament</th>
                         <th class="p-3 text-left border border-slate-600">Bracket</th>
                         <th class="p-3 text-left border border-slate-600">Player 1</th>
@@ -30,11 +38,16 @@
                 <tbody>
                   {% for match in matches %}
                     <tr class="{% if match.winner == player %}win{% else %}loss{% endif %}">
-                        <td class="p-1 border border-slate-600">{{ match.bracket.tournament.name }}</td>
+                        <td>
+                            <a href="/matches/{{ match.id }}">{{ match.id }}</a>
+                        </td>
+                        <td class="p-1 border border-slate-600">
+                            <a href="/tournaments/{{ match.bracket.tournament.id }}">{{ match.bracket.tournament.name }}</a>
+                        </td>
                         <td class="p-1 border border-slate-600">{{ match.bracket.name }}</td>
                         <td class="p-1 border border-slate-600">{{ match.player1.name }}</td>
-                        <td class="p-1 border border-slate-600">{{ match.player1_score }}</td>
-                        <td class="p-1 border border-slate-600">{{ match.player2_score }}</td>
+                        <td class="p-1 border border-slate-600 text-center">{{ match.player1_score }}</td>
+                        <td class="p-1 border border-slate-600 text-center">{{ match.player2_score }}</td>
                         <td class="p-1 border border-slate-600">{{ match.player2.name }}</td>
                     </tr>
                   {% endfor %}
@@ -44,4 +57,28 @@
     </div>
 </div>
 <link rel="stylesheet" href="{% static 'css/dist/ranktable.css' %}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const labels = Array.from({length: {{ rating_data | length }}}, (x, i) => i+1);
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+                label: "Rank",
+                backgroundColor: "hsl(252, 82.9%, 67.8%)",
+                borderColor: "hsl(252, 82.9%, 67.8%)",
+                data: {{ rating_data }},
+            },
+        ],
+    };
+    const config = {
+        type: "line",
+        data,
+        options: {},
+    };
+    var chart = new Chart(
+        document.getElementById("chart"),
+        config
+    );
+</script>
 {% endblock %}

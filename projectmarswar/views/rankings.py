@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render
 
 from projectmarswar.models import Player
@@ -28,10 +29,20 @@ def rankings_view(request):
 
 
 def player_view(request, player):
-    player_obj = Player.objects.get(id=player)
-    matches = sorted(player_obj.get_matches(), key=lambda match: match.id, reverse=True)
+    try:
+        player_obj = Player.objects.get(id=player)
+    except Player.DoesNotExist:
+        raise Http404("Player does not exist")
+    matches = sorted(player_obj.get_matches(), key=lambda match: match.id)
+    rating_data = [ 
+        match.player1_rating if match.player1 == player_obj
+        else match.player2_rating
+        for match in matches
+    ]
+    rating_data.append(player_obj.rating)
     content = {
         "player": player_obj,
         "matches": matches,
+        "rating_data": rating_data,
     }
     return render(request, "players/player.html", content)

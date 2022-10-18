@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+{% load mathfilters %}
+
+{% block title%}Match {{ match.id }} - Project Mars War{% endblock %}
+
+{% block data %}
+<div class="container py-8 mx-auto flex justify-center min-h-screen">
+    <div class="col-span-12">
+        <div class="overflow-auto lg:overflow-visible">
+            <h1 class="text-5xl font-bold py-4 text-center">Match {{ match.id }}</h1>
+            <div class="p-8">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td class="text-xl font-bold px-4">Tournament: </td>
+                            <td>{{ match.bracket.tournament.name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-xl font-bold px-4">Bracket: </td>
+                            <td>{{ match.bracket.name }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <table>
+                <tbody>
+                    <tr class="text-5xl">
+                        <td class="text-center">{{ match.player1_rating }}</td>
+                        <td></td>
+                        <td></td>
+                        <td class="text-center">{{ match.player2_rating }}</td>
+                    </tr>
+                    <tr class="text-5xl font-bold">
+                        <td class="{% if match.winner == match.player1 %}win{% else %}loss{% endif %}">
+                            <a href="/players/{{ match.player1.id }}">{{ match.player1.name }}</a>
+                        </td>
+                        <td class="px-4 border border-slate-600">{{ match.player1_score }}</td>
+                        <td class="px-4 border border-slate-600">{{ match.player2_score }}</td>
+                        <td class="{% if match.winner == match.player2 %}win{% else %}loss{% endif %}">
+                            <a href="/players/{{ match.player2.id }}">{{ match.player2.name }}</a>
+                        </td>
+                    </tr>
+                    <tr class="text-5xl">
+                        <td class="text-center">{% if match.winner == match.player1 %}{{ match.player1_rating|add:match.rating_change }}{% else %}{{ match.player1_rating|sub:match.rating_change }}{% endif %}</td>
+                        <td></td>
+                        <td></td>
+                        <td class="text-center">{% if match.winner == match.player2 %}{{ match.player2_rating|add:match.rating_change }}{% else %}{{ match.player2_rating|sub:match.rating_change }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center {% if match.winner == match.player1 %}text-green-500{% else %}text-red-600{% endif %}">{% if match.winner == match.player1 %}+{% else %}-{% endif %}{{ match.rating_change }}</td>
+                        <td></td>
+                        <td></td>
+                        <td class="text-center {% if match.winner == match.player2 %}text-green-500{% else %}text-red-600{% endif %}">{% if match.winner == match.player2 %}+{% else %}-{% endif %}{{ match.rating_change }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="{% static 'css/dist/ranktable.css' %}">
+{% endblock %}

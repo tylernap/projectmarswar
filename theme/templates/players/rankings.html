@@ -10,7 +10,7 @@
       <h1 class="text-5xl font-bold py-4" style="text-align: center;">Rankings</h1>
       <div class="flex items-center pb-3">
         <input id="show-unranked" type="checkbox" onclick="showUnranked()" class="w-4 h-4 text-gray-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2">
-        <label for="show-unranked" class="ml-2 text-sm font-medium text-gray-600">Show unranked players</label>
+        <label for="show-unranked" class="ml-2 text-sm font-medium text-gray-400">Show unranked players</label>
       </div>
       <table class="text-gray-400 border-separate border-slate-500">
         <thead class="bg-gray-800 text-gray-200">
@@ -24,10 +24,10 @@
         </thead>
         <tbody>
           {% for player in players %}
-            <tr class="{% if player.0.rank == -1 %}unranked hidden {% endif %}{% if player.0.rank == 1 %}first-place text-white{% elif player.0.rank == 2 %}second-place text-white{% elif player.0.rank == 3 %}third-place text-white{% else %}other-place{% endif %}">
+            <tr class="{% if player.0.rank == -1 %}unranked hidden {% endif %}{% if player.0.rank == 1 %}first-place text-white{% elif player.0.rank == 2 %}second-place text-white{% elif player.0.rank == 3 %}third-place text-white{% else %}transition ease-in-out duration-200 bg-gray-900 hover:bg-gray-800{% endif %}">
                 <td class="p-3 font-bold border border-slate-600">{% if player.0.rank == -1 %}--{% else %}{{ player.0.rank }}{% endif %}</td>
                 <td class="p-3 border border-slate-600">
-                  <a href="/players/{{player.0.id}}"><div class="h-full w-full transition ease-in-out hover:font-bold duration-200">{{ player.0.name }}</div></a>
+                  <a href="/players/{{player.0.id}}"><div class="h-full w-full">{{ player.0.name }}</div></a>
                 </td>
                 <td class="p-3 border border-slate-600">{% if player.0.rank == -1 %}--{% else %}{{ player.0.rating }}{% endif %}</td>
                 <td class="p-3 border border-slate-600">{{ player.0.wins }}-{{ player.0.losses }}-{{ player.0.draws }}</td>

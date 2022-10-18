@@ -26,7 +26,7 @@ class Tournament(models.Model):
 
     def get_players(self):
         players = []
-        for bracket in self.get_brackets:
+        for bracket in self.get_brackets():
             for player in bracket.get_players():
                 players.append(player)
 
@@ -51,6 +51,9 @@ class Bracket(models.Model):
             [match.player1 for match in matches]
             + [match.player2 for match in matches]
         ))
+    
+    def get_player_count(self):
+        return len(self.get_players())
 
 
 class Player(models.Model):
@@ -90,17 +93,31 @@ class Match(models.Model):
     id = models.CharField(max_length=20, primary_key=True)
     bracket = models.ForeignKey(Bracket, on_delete=models.CASCADE)
     player1 = models.ForeignKey(Player, on_delete=models.CASCADE, related_name="player1")
+    player1_rating = models.IntegerField(null=True, blank=True)
     player2 = models.ForeignKey(Player, on_delete=models.CASCADE, related_name="player2")
+    player2_rating = models.IntegerField(null=True, blank=True)
     player1_score = models.IntegerField()
     player2_score = models.IntegerField()
     winner = models.ForeignKey(Player, on_delete=models.CASCADE, related_name="winner")
+    rating_change = models.IntegerField(default=0)
+    adjusted = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.id}: {self.player1.name} vs {self.player2.name}"
 
     def adjust_player_ratings(self):
+        # If for whatever reason a player is not set, just skip
         if self.player1 is None or self.player2 is None:
             return
+
+        # If this match's score is already adjusted, skip
+        if self.adjusted:
+            return
+
+        # Saving these for historical purposes
+        self.player1_rating = self.player1.rating
+        self.player2_rating = self.player2.rating
+
         player1_expected_score = 1 / (
             1 + math.pow(10, (self.player2.rating - self.player1.rating) / SCALE_FACTOR)
         )
@@ -109,6 +126,7 @@ class Match(models.Model):
         )
 
         if self.winner == self.player1:
+            self.rating_change = K_FACTOR * (1 - player1_expected_score)
             self.player1.rating = self.player1.rating + (
                 K_FACTOR * (1 - player1_expected_score)
             )
@@ -118,6 +136,7 @@ class Match(models.Model):
             self.player1.wins += 1
             self.player2.losses += 1
         elif self.winner == self.player2:
+            self.rating_change = K_FACTOR * (1 - player2_expected_score)
             self.player1.rating = self.player1.rating + (
                 K_FACTOR * (0 - player1_expected_score)
             )
@@ -137,5 +156,7 @@ class Match(models.Model):
             self.player1.draws += 1
             self.player2.draws += 1
 
+        self.adjusted = True
         self.player1.save()
         self.player2.save()
+        self.save()

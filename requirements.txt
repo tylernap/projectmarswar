@@ -16,3 +16,5 @@ pychallonge
 pysmashgg
 tabulate
 django-environ
+django-mathfilters
+gunicorn

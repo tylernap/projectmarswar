@@ -13,19 +13,21 @@
           <tr>
             <th class="p-3 text-left border border-slate-600">Tournament</th>
             <th class="p-3 text-left border border-slate-600">No. of Brackets</th>
+            <th class="p-3 text-left border border-slate-600">No. of Entrants</th>
           </tr>
         </thead>
         <tbody>
           {% for tournament in tournaments %}
             <tr class="transition ease-in-out duration-200 bg-gray-900 hover:bg-gray-800">
                 <td class="p-3 border border-slate-600">
-                    <a href="/tournament/{{ tournament.id }}">
+                    <a href="/tournaments/{{ tournament.id }}">
                         <div class="h-full w-full">
                         {{ tournament.name }}
                         </div>
                     </a>
                  </td>
                 <td class="p-3 border border-slate-600">{{ tournament.get_brackets | length }}</td>
+                <td class="p-3 border border-slate-600">{{ tournament.get_players | length }}</td>
             </tr>
           {% endfor %}
         </tbody>

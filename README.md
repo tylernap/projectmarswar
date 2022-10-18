@@ -33,3 +33,15 @@ pip3 install -r requirements.txt
 python3 manage.py migrate
 python3 manage.py createsuperuser
 ```
+
+#### Populating player data
+```
+python3 manage.py initiate_player_data -a -l -c 5
+```
+This will look for all tournaments and populate tournament, player, and match data into the database. `-a` will look for all tournaments available. The `-l` flag is if you want to include life4 data. `-c` is for display purposes only and show the rankings of people that have more than 5 matches played
+
+## Deploying
+If you have a server available to run things from, you can use the included `docker-compose.yml` file to do so with Docker. Replace the angle bracket part with your website name:
+```
+docker-compose run --rm  certbot certonly --webroot --webroot-path /var/www/certbot/ -d <example.org>
+```
