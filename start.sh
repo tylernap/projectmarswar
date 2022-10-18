@@ -11,6 +11,6 @@ python manage.py adjust_ranks -c 5
 
 python manage.py tailwind install
 python manage.py tailwind build
-python manage.py collectstatic
+python manage.py collectstatic --noinput
 
 gunicorn projectmarswar.wsgi --bind 0.0.0.0:8080 --workers 3
