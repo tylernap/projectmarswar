@@ -205,6 +205,8 @@ CKEDITOR_SETTINGS = {
     'format_h3': {"element": 'h3', "attributes": {'class': 'text-3xl font-bold'}},
     'format_h4': {"element": 'h4', "attributes": {'class': 'text-2xl font-bold'}},
     'format_h5': {"element": 'h5', "attributes": {'class': 'text-xl font-bold'}},
+    'format_ul': {"element": 'ul', "attributes": {'class': 'list-disc'}},
+    'format_p': {"element": 'p', "attributes": {'class': 'py-4'}},
     'language': '{{ language }}',
     'toolbar': 'CMS',
     'skin': 'moono-lisa',

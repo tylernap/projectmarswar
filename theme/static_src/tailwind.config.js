@@ -45,6 +45,9 @@ module.exports = {
     theme: {
         extend: {},
     },
+    safelist: [
+        'list-disc',
+    ],
     plugins: [
         /**
          * '@tailwindcss/forms' is the forms plugin that provides a minimal styling
