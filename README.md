@@ -23,6 +23,10 @@ DB_PORT=5432
 STARTGG_API_TOKEN=<API token obtained from start.gg>
 LIFE4_USER=<your email used to sign it>
 LIFE4_PASSWORD=<your password>
+
+# Django admin user info
+DJANGO_USER=<whatever>
+DJANGO_PASSWORD=<also whatever>
 ```
 
 #### Setting up the environment

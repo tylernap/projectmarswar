@@ -23,6 +23,9 @@ services:
       - ./staticfiles/:/app/staticfiles/
     depends_on:
       - db
+    environment:
+      - DJANGO_SUPERUSER_USERNAME=${DJANGO_USER}
+      - DJANGO_SUPERUSER_PASSWORD=${DJANGO_PASSWORD}
   db:
     image: postgres
     container_name: "marswar-db"
