@@ -23,3 +23,7 @@ select {
     background-color: rgb(17 24 39) !important;
     padding-right: 2rem !important;
 }
+
+div.dataTables_scrollHeadInner {
+    margin: 0 auto;
+}

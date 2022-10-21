@@ -6,46 +6,43 @@
 {% block data %}
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
-<div class="container py-8 mx-auto flex justify-center min-h-screen">
-    <div class="col-span-12">
-        <div class="overflow-auto lg-overflow-visible">
-            <h1 class="text-5xl font-bold py-4 text-center">Matches</h1>
-            <table class="text-gray-400 border-separate border-slate-500" id="matches">
-                <thead class="bg-gray-800 text-gray-200">
-                    <tr>
-                        <th class="p-3 text-left border border-slate-600">Match ID</th>
-                        <th class="p-3 text-left border border-slate-600">Tournament</th>
-                        <th class="p-3 text-left border border-slate-600">Player 1</th>
-                        <th class="p-3 text-left border border-slate-600">Score</th>
-                        <th class="p-3 text-left border border-slate-600">Score</th>
-                        <th class="p-3 text-left border border-slate-600">Player 2</th>
-                    </tr>  
-                </thead>
-                <tbody>
-                    {% for match in matches %}
-                    <tr class="transition ease-in-out duration-200 bg-gray-900 hover:bg-gray-800">
-                        <td class="p-1 border border-slate-600">
-                            <a href="/matches/{{ match.id }}">{{ match.id }}</a>
-                        </td>
-                        <td class="p-1 border border-slate-600">
-                            <a href="/tournaments/{{ match.bracket.tournament.id }}">{{ match.bracket.tournament.name }}</a>
-                        </td>
-                        <td class="p-1 border border-slate-600">{{ match.player1.name }}</td>
-                        <td class="p-1 border border-slate-600 text-center">{{ match.player1_score }}</td>
-                        <td class="p-1 border border-slate-600 text-center">{{ match.player2_score }}</td>
-                        <td class="p-1 border border-slate-600">{{ match.player2.name }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+
+<h1 class="text-5xl font-bold py-4 text-center">Matches</h1>
+<table class="text-gray-400 border-separate border-slate-500" id="matches">
+    <thead class="bg-gray-800 text-gray-200">
+        <tr>
+            <th class="p-3 text-left border border-slate-600">Match ID</th>
+            <th class="p-3 text-left border border-slate-600">Tournament</th>
+            <th class="p-3 text-left border border-slate-600">Player 1</th>
+            <th class="p-3 text-left border border-slate-600">Score</th>
+            <th class="p-3 text-left border border-slate-600">Score</th>
+            <th class="p-3 text-left border border-slate-600">Player 2</th>
+        </tr>  
+    </thead>
+    <tbody>
+        {% for match in matches %}
+        <tr class="transition ease-in-out duration-200 bg-gray-900 hover:bg-gray-800">
+            <td class="p-1 border border-slate-600">
+                <a href="/matches/{{ match.id }}">{{ match.id }}</a>
+            </td>
+            <td class="p-1 border border-slate-600">
+                <a href="/tournaments/{{ match.bracket.tournament.id }}">{{ match.bracket.tournament.name }}</a>
+            </td>
+            <td class="p-1 border border-slate-600">{{ match.player1.name }}</td>
+            <td class="p-1 border border-slate-600 text-center">{{ match.player1_score }}</td>
+            <td class="p-1 border border-slate-600 text-center">{{ match.player2_score }}</td>
+            <td class="p-1 border border-slate-600">{{ match.player2.name }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 <link rel="stylesheet" href="{% static 'css/matchtable.css' %}">
 <script>
     $(document).ready( function () {
         $('#matches').DataTable({
-            "rowCallback": function ( row, data, dataIndex ) {
+            scrollX: true,
+            rowCallback: function ( row, data, dataIndex ) {
                 $(row).css("background-color", "rgb(17 24 39 / var(--tw-bg-opacity))");
             }
         });

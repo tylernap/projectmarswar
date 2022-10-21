@@ -4,44 +4,42 @@
 {% block title %}{{ tournament.name }} - Project Mars War{% endblock %}
 
 {% block data %}
-<div class="container py-8 mx-auto flex justify-center min-h-screen">
-    <div class="col-span-12">
-        <div class="overflow-auto lg-overflow-visible">
-            <h1 class="text-5xl font-bold py-4 text-center">{{ tournament.name }}</h1>
-            {% for bracket in brackets %}
-            <div class="py-2">
-                <h3 class="text-xl font-bold py-4 text-left">{{ bracket.name }}</h3>
-                <table class="table-auto text-gray-400 border-separate border-slate-500">
-                    <thead class="bg-gray-800">
-                        <tr>
-                            <th class="p-3 text-left border border-slate-600">Match ID</th>
-                            <th class="p-3 text-left border border-slate-600">Player 1</th>
-                            <th class="p-3 text-left border border-slate-600">Score</th>
-                            <th class="p-3 text-left border border-slate-600">Score</th>
-                            <th class="p-3 text-left border border-slate-600">Player 2</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for match in bracket.get_matches %}
-                        <tr class="bg-gray-900">
-                            <td class="p-3 border border-slate-600">
-                                <a href="/matches/{{ match.id }}">{{ match.id }}</a>
-                            </td>
-                            <td class="p-3 border border-slate-600">
-                                <a href="/players/{{ match.player1.id }}">{{ match.player1.name }}</a>
-                            </td>
-                            <td class="p-1 border border-slate-600 text-center">{{ match.player1_score }}</td>
-                            <td class="p-1 border border-slate-600 text-center">{{ match.player2_score }}</td>
-                            <td class="p-1 border border-slate-600">
-                                <a href="/players/{{ match.player2.id }}">{{ match.player2.name }}</a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            {% endfor %}
+<h1 class="text-5xl font-bold py-4 text-center">{{ tournament.name }}</h1>
+{% for bracket in brackets %}
+<div class="py-2">
+    <h3 class="text-xl font-bold py-4 text-center">{{ bracket.name }}</h3>
+    <div class="flex justify-center">
+        <div class="overflow-auto">
+            <table class="table-auto text-gray-400 border-separate border-slate-500">
+                <thead class="bg-gray-800">
+                    <tr>
+                        <th class="p-3 text-left border border-slate-600">Match ID</th>
+                        <th class="p-3 text-left border border-slate-600">Player 1</th>
+                        <th class="p-3 text-left border border-slate-600">Score</th>
+                        <th class="p-3 text-left border border-slate-600">Score</th>
+                        <th class="p-3 text-left border border-slate-600">Player 2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for match in bracket.get_matches %}
+                    <tr class="bg-gray-900">
+                        <td class="p-3 border border-slate-600">
+                            <a href="/matches/{{ match.id }}">{{ match.id }}</a>
+                        </td>
+                        <td class="p-3 border border-slate-600">
+                            <a href="/players/{{ match.player1.id }}">{{ match.player1.name }}</a>
+                        </td>
+                        <td class="p-1 border border-slate-600 text-center">{{ match.player1_score }}</td>
+                        <td class="p-1 border border-slate-600 text-center">{{ match.player2_score }}</td>
+                        <td class="p-1 border border-slate-600">
+                            <a href="/players/{{ match.player2.id }}">{{ match.player2.name }}</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+{% endfor %}
 {% endblock %}
