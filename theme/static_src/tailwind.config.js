@@ -47,6 +47,7 @@ module.exports = {
     },
     safelist: [
         'list-disc',
+        'prose',
     ],
     plugins: [
         /**

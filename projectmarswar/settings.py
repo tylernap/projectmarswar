@@ -199,14 +199,6 @@ TAILWIND_APP_NAME = 'theme'
 
 # CKEditor config
 CKEDITOR_SETTINGS = {
-    # These formats need to be adjusted for Tailwind
-    'format_h1': {"element": 'h1', "attributes": {'class': 'text-5xl font-bold py-4'}},
-    'format_h2': {"element": 'h2', "attributes": {'class': 'text-4xl font-bold py-2'}},
-    'format_h3': {"element": 'h3', "attributes": {'class': 'text-3xl font-bold'}},
-    'format_h4': {"element": 'h4', "attributes": {'class': 'text-2xl font-bold'}},
-    'format_h5': {"element": 'h5', "attributes": {'class': 'text-xl font-bold'}},
-    'format_ul': {"element": 'ul', "attributes": {'class': 'list-disc'}},
-    'format_p': {"element": 'p', "attributes": {'class': 'py-4'}},
     'language': '{{ language }}',
     'toolbar': 'CMS',
     'skin': 'moono-lisa',
