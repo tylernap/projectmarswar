@@ -198,6 +198,7 @@ THUMBNAIL_PROCESSORS = (
 TAILWIND_APP_NAME = 'theme'
 
 # CKEditor config
+TEXT_INLINE_EDITING = True
 CKEDITOR_SETTINGS = {
     'language': '{{ language }}',
     'toolbar': 'CMS',
