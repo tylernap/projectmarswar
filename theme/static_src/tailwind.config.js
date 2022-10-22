@@ -48,6 +48,7 @@ module.exports = {
     safelist: [
         'list-disc',
         'prose',
+        'max-w-none',
         'grow',
     ],
     plugins: [
