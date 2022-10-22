@@ -1,6 +1,7 @@
 django==3.2.14
 django-cms
 django-filer
+django-redis
 django-tailwind
 django-treebeard
 djangocms-file
