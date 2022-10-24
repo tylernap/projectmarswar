@@ -16,7 +16,7 @@ DEBUG=True
 # Database config. Change these if you are using a different DB setup
 DB_USER=postgres
 DB_PASSWORD=postgres
-DB_HOST=localhost
+DB_HOST=db
 DB_PORT=5432
 
 # Various API tokens
@@ -27,6 +27,10 @@ LIFE4_PASSWORD=<your password>
 # Django admin user info
 DJANGO_USER=<whatever>
 DJANGO_PASSWORD=<also whatever>
+
+# Redis config. Change this if you are using a different setup
+REDIS_HOST=redis
+REDIS_PORT=6379
 ```
 
 #### Setting up the environment
@@ -54,7 +58,7 @@ If you have a server available to run things from, you can use the included `doc
 ```
 docker-compose up
 ```
-This will stand up everything but does not start the HTTPS server or create the certificate. While django populates player data, create the cert in another session
+This will stand up everything but does not start the HTTPS server or create the certificate. Starting the application layer can take some time so be patient for the site to load up. Follow the logs to see its progress with `docker-compose logs -f web`. While django populates player data, create the cert in another session
 
 #### Certificate creation
 Next we will need to create a certificate to enable the HTTPS portion of the server. Replace the angle bracket part with your website name:
