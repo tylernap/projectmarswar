@@ -184,7 +184,7 @@ CMS_TEMPLATES = [
     ('base.html', 'Tailwind base Template'),
 ]
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 CMS_COLOR_SCHEME = "dark"
 CMS_COLOR_SCHEME_TOGGLE = True
 
