@@ -50,6 +50,7 @@ module.exports = {
         'prose',
         'max-w-none',
         'grow',
+        'blur-sm',
     ],
     plugins: [
         /**
