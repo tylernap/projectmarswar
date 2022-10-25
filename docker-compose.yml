@@ -10,6 +10,7 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
       - ./staticfiles/:/static
+      - ./media/:/media
       - ../certbot/www:/var/www/certbot/:ro
       - ../certbot/conf/:/etc/nginx/ssl/:ro
     depends_on:
