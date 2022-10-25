@@ -51,6 +51,7 @@ module.exports = {
         'max-w-none',
         'grow',
         'blur-sm',
+        'rounded',
     ],
     plugins: [
         /**
