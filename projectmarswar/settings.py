@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'theme',
     'django_browser_reload',
     'mathfilters',
+    'djangocms_icon',
     'projectmarswar',
 ]
 

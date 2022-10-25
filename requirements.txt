@@ -12,6 +12,7 @@ djangocms-snippet
 djangocms-style
 djangocms-text-ckeditor
 djangocms-video
+djangocms-icon
 psycopg2
 pychallonge
 pysmashgg
