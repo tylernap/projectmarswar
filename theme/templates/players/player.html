@@ -37,17 +37,21 @@
             <tbody>
                 {% for match in matches %}
                 <tr class="{% if match.winner == player %}win{% else %}loss{% endif %}">
-                    <td>
+                    <td class="text-center">
                         <a href="/matches/{{ match.id }}">{{ match.id }}</a>
                     </td>
                     <td class="p-1 border border-slate-600">
                         <a href="/tournaments/{{ match.bracket.tournament.id }}">{{ match.bracket.tournament.name }}</a>
                     </td>
                     <td class="p-1 border border-slate-600">{{ match.bracket.name }}</td>
-                    <td class="p-1 border border-slate-600">{{ match.player1.name }}</td>
-                    <td class="p-1 border border-slate-600 text-center">{{ match.player1_score }}</td>
-                    <td class="p-1 border border-slate-600 text-center">{{ match.player2_score }}</td>
-                    <td class="p-1 border border-slate-600">{{ match.player2.name }}</td>
+                    <td class="p-1 border border-slate-600">
+                        <a href="/players/{{ match.player1.id }}">{{ match.player1.name }}</a>
+                    </td>
+                    <td class="p-1 border border-slate-600 text-center">{% if match.player1_score == -1 or match.player2_score == -1 %}-{% else %}{{ match.player1_score }}{% endif %}</td>
+                    <td class="p-1 border border-slate-600 text-center">{% if match.player1_score == -1 or match.player2_score == -1 %}-{% else %}{{ match.player2_score }}{% endif %}</td>
+                    <td class="p-1 border border-slate-600">
+                        <a href="/players/{{ match.player2.id }}">{{ match.player2.name }}</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
