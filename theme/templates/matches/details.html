@@ -25,28 +25,32 @@
     <table>
         <tbody>
             <tr class="text-xl sm:text-5xl">
+                <td class="text-center text-lg">Initial rating: </td>
                 <td class="text-center">{{ match.player1_rating }}</td>
                 <td></td>
                 <td></td>
                 <td class="text-center">{{ match.player2_rating }}</td>
             </tr>
             <tr class="text-xl sm:text-5xl font-bold">
+                <td></td>
                 <td class="{% if match.winner == match.player1 %}win{% else %}loss{% endif %}">
                     <a href="/players/{{ match.player1.id }}">{{ match.player1.name }}</a>
                 </td>
-                <td class="px-4 border border-slate-600">{{ match.player1_score }}</td>
-                <td class="px-4 border border-slate-600">{{ match.player2_score }}</td>
+                <td class="px-4 border border-slate-600">{% if match.player1_score == -1 or match.player2_score == -1 %}-{% else %}{{ match.player1_score }}{% endif %}</td>
+                <td class="px-4 border border-slate-600">{% if match.player1_score == -1 or match.player2_score == -1 %}-{% else %}{{ match.player2_score }}{% endif %}</td>
                 <td class="{% if match.winner == match.player2 %}win{% else %}loss{% endif %}">
                     <a href="/players/{{ match.player2.id }}">{{ match.player2.name }}</a>
                 </td>
             </tr>
             <tr class="text-xl sm:text-5xl">
+                <td class="text-center text-lg">New Rating:</td>
                 <td class="text-center">{% if match.winner == match.player1 %}{{ match.player1_rating|add:match.rating_change }}{% else %}{{ match.player1_rating|sub:match.rating_change }}{% endif %}</td>
                 <td></td>
                 <td></td>
                 <td class="text-center">{% if match.winner == match.player2 %}{{ match.player2_rating|add:match.rating_change }}{% else %}{{ match.player2_rating|sub:match.rating_change }}{% endif %}</td>
             </tr>
             <tr>
+                <td></td>
                 <td class="text-center {% if match.winner == match.player1 %}text-green-500{% else %}text-red-600{% endif %}">{% if match.winner == match.player1 %}+{% else %}-{% endif %}{{ match.rating_change }}</td>
                 <td></td>
                 <td></td>

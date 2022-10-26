@@ -27,3 +27,27 @@ select {
 div.dataTables_scrollHeadInner {
     margin: 0 auto;
 }
+
+td.win {
+	background-color:rgba(0, 247, 53, 0.4);
+	transition-timing-function: ease-in-out;
+	transition-duration: 200ms;
+}
+
+td.win:hover {
+	background-color:rgba(0, 247, 53, 0.5);
+	transition-timing-function: ease-in-out;
+	transition-duration: 200ms;
+}
+
+td.loss {
+	background-color:rgba(207, 87, 50, 0.4);
+	transition-timing-function: ease-in-out;
+	transition-duration: 200ms;
+}
+
+td.loss:hover {
+	background-color:rgba(207, 87, 50, 0.5);
+	transition-timing-function: ease-in-out;
+	transition-duration: 200ms;
+}
