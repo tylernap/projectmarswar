@@ -52,6 +52,7 @@ module.exports = {
         'grow',
         'blur-sm',
         'rounded',
+        'invert',
     ],
     plugins: [
         /**
