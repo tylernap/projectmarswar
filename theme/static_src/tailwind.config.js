@@ -48,6 +48,7 @@ module.exports = {
     safelist: [
         'list-disc',
         'prose',
+        'prose-invert',
         'max-w-none',
         'grow',
         'blur-sm',
