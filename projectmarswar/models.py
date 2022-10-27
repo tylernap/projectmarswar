@@ -10,7 +10,8 @@ SCALE_FACTOR = 400
 
 class Tournament(models.Model):
     CHOICES = [
-        ("SG", "Start.gg")
+        ("SG", "Start.gg"),
+        ("CH", "Challonge"),
     ]
     id = models.CharField(max_length=20, primary_key=True)
     name = models.CharField(max_length=100)
