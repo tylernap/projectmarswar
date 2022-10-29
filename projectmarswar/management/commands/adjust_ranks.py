@@ -17,6 +17,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         players = Player.objects.order_by("-rating")
+        players.update(rank=-1)
         filtered_players = [
             player for player in players if player.get_total_matches() > options["count"]
         ]

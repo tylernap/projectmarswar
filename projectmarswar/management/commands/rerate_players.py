@@ -19,9 +19,9 @@ class Command(BaseCommand):
 
         L4 = life4.Life4()
 
-        # Reset players to default rating
+        # Reset players to default rating and record
         players = Player.objects.all()
-        players.update(rating=1000)
+        players.update(rating=1000, wins=0, losses=0, draws=0)
 
         # Set ratings based on life4 if specified
         if options["life4"]:
