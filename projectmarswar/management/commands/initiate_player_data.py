@@ -1,18 +1,16 @@
-from datetime import datetime, timezone
-import time
+import re
 
 from tabulate import tabulate
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 
 from projectmarswar.models import Bracket, Player, Match, Tournament
-from projectmarswar.utils import startgg, life4, translator
+from projectmarswar.utils import challonge, startgg, life4, translator
 
 
 class Command(BaseCommand):
     help = "Initiates player rankings based on previous tournaments"
 
     def add_arguments(self, parser):
-        parser.add_argument("--all", "-a", action="store_true", help="Lookup all DDR tournaments possible")
         parser.add_argument(
             "--count",
             "-c",
@@ -24,7 +22,7 @@ class Command(BaseCommand):
             "--tournaments",
             "-t",
             type=str,
-            help="Comma-separated list of tournaments to scan. Minimum 2 tournaments"
+            help="Comma-separated list of challonge tournaments to scan"
         )
         parser.add_argument(
             "--life4",
@@ -35,36 +33,91 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        def init_startgg_data():
-            # Make Tournament objects
-            if options["all"]:
-                self.stdout.write("Getting brackets from all available tournaments from start.gg")
-                tournaments = startgg.get_all_tournaments()
-                for tournament in tournaments:
-                    tournament_obj, created = translator.create_tournament("startgg", tournament)
+        L4 = life4.Life4()
+
+        def init_challonge_data():
+            if options["tournaments"]:
+                self.stdout.write("Getting brackets from Challonge")
+                tournament_slugs = options["tournaments"].split(",")
+                for slug in tournament_slugs:
+                    tournament = challonge.get_tournament(slug)
+                    tournament_obj, created = translator.create_tournament("challonge", tournament)
                     if created:
                         self.stdout.write(f"Created tournament {str(tournament_obj)}")
-            elif options["tournaments"]:
-                tournament_slugs = options["tournaments"].split(",")
-                if len(tournaments) <= 1:
-                    raise CommandError("Tournaments option cannot be parsed or is less than 2")
-                all_tournaments = startgg.get_all_tournaments()
-                for slug in tournament_slugs:
-                    for tournament in all_tournaments:
-                        if tournament["tournamentSlug"] == slug:
-                            tournament_obj, created = translator.create_tournament(
-                                "startgg",
-                                tournament,
-                            )
-                            if created:
-                                self.stdout.write(f"Created tournament {str(tournament_obj)}")
-            else:
-                raise CommandError(
-                    "No tournaments to scan. Use -a for all or -t and specify which tournaments to scan"
-                )
+                for tournament in Tournament.objects.filter(type="CH"):
+                    # Challonge does not have brackets and does not differentiate between pools
+                    bracket_obj, created = Bracket.objects.get_or_create(
+                        id=tournament.id,
+                        event_name=tournament.name,
+                        name=tournament.name,
+                        tournament=tournament
+                    )
+                    if created:
+                        self.stdout.write(f"Created bracket {str(bracket_obj)}")
+
+                    # Keep track of players that are duplicates
+                    # {Player: challonge_id}
+                    player_duplicates = {}
+                    # Create challonge player objects
+                    players = challonge.get_players(tournament.slug)
+                    for player in players:
+                        # Trim off fat the organizers may put at the beginning
+                        player["name"] = re.sub(r'^\d+\s+', '', player["name"])
+                        # Check to see if there are any variants on the name
+                        player_name = translator.translate_name(player["name"])
+                        player_filter = Player.objects.filter(name__iexact=player_name)
+                        if player_filter:
+                            if player_duplicates.get(player_filter[0]):
+                                player_duplicates[player_filter[0]].append(player["id"])
+                            else:
+                                player_duplicates[player_filter[0]] = [player["id"]]
+                            player["name"] = player_filter[0].name
+                            player["id"] = player_filter[0].id
+                        player_obj, created = translator.create_player("challonge", player)
+                        if created:
+                            self.stdout.write(f"Created player {str(player_obj)}")
+                            l4_rank = L4.get_player_rank(player_obj.name)
+                            if l4_rank and options["life4"]:
+                                player_obj.life4_rank = l4_rank
+                                player_obj.rating = L4.get_rating_from_rank(l4_rank)
+                                player_obj.save()
+
+                    # Create match objects
+                    matches = challonge.get_matches(tournament.slug)
+
+                    for match in matches:
+                        # Override player IDs if it is from a duplicate player
+                        for player, challonge_ids in player_duplicates.items():
+                            for challonge_id in challonge_ids:
+                                if challonge_id == match["player1_id"]:
+                                    if match["winner_id"] == challonge_id:
+                                        match["winner_id"] = player.id
+                                    elif match["loser_id"] == challonge_id:
+                                        match["loser_id"] = player.id
+                                    match["player1_id"] = player.id
+                                if challonge_id == match["player2_id"]:
+                                    if match["winner_id"] == challonge_id:
+                                        match["winner_id"] = player.id
+                                    elif match["loser_id"] == challonge_id:
+                                        match["loser_id"] = player.id
+                                    match["player2_id"] = player.id
+                        match_obj, created = translator.create_match("challonge", match, bracket_obj)
+                        if created:
+                            self.stdout.write(f"Created match {str(match_obj)}")
+
+
+
+        def init_startgg_data():
+            # Make Tournament objects
+            self.stdout.write("Getting brackets from all available tournaments from start.gg")
+            tournaments = startgg.get_all_tournaments()
+            for tournament in tournaments:
+                tournament_obj, created = translator.create_tournament("startgg", tournament)
+                if created:
+                    self.stdout.write(f"Created tournament {str(tournament_obj)}")
 
             # Make Bracket objects
-            for tournament in Tournament.objects.all():
+            for tournament in Tournament.objects.filter(type="SG"):
                 for brackets, event_name in startgg.get_brackets_from_tournament(tournament):
                     for bracket in brackets:
                         bracket_obj, created = translator.create_bracket(
@@ -74,23 +127,22 @@ class Command(BaseCommand):
                             self.stdout.write(f"Created bracket {str(bracket_obj)}")
 
             # Make Player objects from brackets
-            brackets = Bracket.objects.all()
+            brackets = Bracket.objects.filter(tournament__type="SG")
             self.stdout.write("Getting players from all brackets")
-            l4 = life4.Life4()
 
             for bracket in brackets:
                 for player in startgg.get_players_from_bracket(bracket.id):
-                    l4_rank = l4.get_player_rank(player["entrantPlayers"][0]["playerTag"])
+                    l4_rank = L4.get_player_rank(player["entrantPlayers"][0]["playerTag"])
                     player_obj, created = translator.create_player("startgg", player)
                     if created:
                         self.stdout.write(f"Created player {str(player_obj)}")
                         if l4_rank and options["life4"]:
                             player_obj.life4_rank = l4_rank
-                            player_obj.rating = l4.get_rating_from_rank(l4_rank)
+                            player_obj.rating = L4.get_rating_from_rank(l4_rank)
                             player_obj.save()
 
             # Make Match objects
-            self.stdout.write("Getting all matches")
+            self.stdout.write("Getting all start.gg matches")
             self.stdout.write(self.style.WARNING("NOTE: This will take a while"))
             for bracket in brackets:
                 for match in startgg.get_matches_from_bracket(bracket.id):
@@ -111,6 +163,7 @@ class Command(BaseCommand):
             )
         else:
             init_startgg_data()
+            init_challonge_data()
 
             # Assuming match IDs are roughly chronological
             matches = Match.objects.order_by("bracket__tournament__date", "id")

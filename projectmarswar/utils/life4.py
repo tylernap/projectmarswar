@@ -126,10 +126,14 @@ class Life4:
         if os.path.exists(translation_file):
             with open(translation_file) as f:
                 translation_content = json.load(f)
-        player_name = translation_content.get(name, name)
+        translated_names = translation_content.get(name, [name])
         for player in self.data:
-            if player["username"].lower() == player_name.lower():
+            for translated_name in translated_names:
+                if player["username"].lower() == translated_name.lower():
+                    return player.get("rank", None)
+            if player["username"].lower() == name.lower():
                 return player.get("rank", None)
+
         return None
 
     def get_rating_from_rank(self, rank):

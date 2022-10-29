@@ -14,13 +14,16 @@ smash = pysmashgg.SmashGG(API_TOKEN, True)
 # TODO: These game IDs were obtained manually through a graphql query to start.gg
 # This could probably be automated at some point, but for now...
 DDR_A_ID = 2902
-DDR_A20_ID = 33637
+DDR_A20_NOSPACE_ID = 33637
+DDR_A20_ID = 34558
+DDR_A3_ID = 44865
 DDR_EXTREME_PRO_ID = 2907
 
 # When searching for all tournaments, these IDs will be the ones searched
 GAMES_TO_SEARCH = [
     DDR_A_ID,
     DDR_A20_ID,
+    DDR_A20_NOSPACE_ID,
     DDR_EXTREME_PRO_ID,
 ]
 
@@ -56,7 +59,7 @@ def paginate(function: Callable, *args) -> list:
                 if retry == RETRY_AMOUNT:
                     print(f"Failed to return results: {str(e)}")
                     break
-                print(f"Failed to return results. Retrying in {RETRY_TIME} seconds")
+                print(f"Failed to return results: {str(e)}. Retrying in {RETRY_TIME} seconds")
                 time.sleep(RETRY_TIME)
         page_number += 1
 
