@@ -33,7 +33,10 @@ def player_view(request, player):
         player_obj = Player.objects.get(id=player)
     except Player.DoesNotExist:
         raise Http404("Player does not exist")
-    matches = sorted(player_obj.get_matches(), key=lambda match: match.id)
+    matches = sorted(player_obj.get_matches(), key=lambda match: (
+        match.bracket.tournament.date,
+        match.id
+    ))
     rating_data = [ 
         match.player1_rating if match.player1 == player_obj
         else match.player2_rating
