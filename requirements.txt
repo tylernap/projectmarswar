@@ -20,3 +20,6 @@ tabulate
 django-environ
 django-mathfilters
 gunicorn
+djangorestframework
+markdown
+django-filter
