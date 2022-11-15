@@ -77,6 +77,16 @@ def get_all_tournaments() -> list:
     return tournaments
 
 
+def get_tournament(slug: str) -> dict:
+    info = smash.tournament_show(slug)
+    return {
+        "tournamentName": info["name"],
+        "tournamentId": info["id"],
+        "tournamentSlug": slug,
+        "startAt": info["startTimestamp"]
+    }
+
+
 def get_brackets_from_tournament(tournament) -> list:
     for retry in range(1, RETRY_AMOUNT):
         try:
