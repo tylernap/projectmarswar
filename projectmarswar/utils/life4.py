@@ -55,6 +55,13 @@ RANKS_TO_IMAGE = {
     "Cobalt III": "c3",
     "Cobalt IV": "c4",
     "Cobalt V": "c5",
+    # Pearl
+    "Pearl (P)": "l1",
+    "Pearl I": "l1",
+    "Pearl II": "l2",
+    "Pearl III": "l3",
+    "Pearl IV": "l4",
+    "Pearl V": "l5",
     # Amethyst
     "Amethyst (P)": "a1",
     "Amethyst I": "a1",
@@ -91,9 +98,10 @@ RANK_TO_RATINGS = {
     "Platinum": 1000,
     "Diamond": 1200,
     "Cobalt": 1400,
-    "Amethyst": 1600,
-    "Emerald": 1800,
-    "Onyx": 2000
+    "Pearl": 1600,
+    "Amethyst": 1800,
+    "Emerald": 2000,
+    "Onyx": 2200
 }
 
 class Life4:
