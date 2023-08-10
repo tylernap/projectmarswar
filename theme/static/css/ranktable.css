@@ -337,6 +337,41 @@ tr.third-place:hover {
 	width: 14px;
 }
 
+.l1::before {
+	background-image: url("/static/rankimg/l1.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.l2::before {
+	background-image: url("/static/rankimg/l2.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.l3::before {
+	background-image: url("/static/rankimg/l3.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.l4::before {
+	background-image: url("/static/rankimg/l4.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
+.l5::before {
+	background-image: url("/static/rankimg/l5.png");
+	background-size: 14px 16px;
+	padding-right: 14px;
+	width: 14px;
+}
+
 .a1::before {
 	background-image: url("/static/rankimg/a1.png");
 	background-size: 14px 16px;
