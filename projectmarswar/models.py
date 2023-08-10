@@ -12,6 +12,7 @@ class Tournament(models.Model):
     CHOICES = [
         ("SG", "Start.gg"),
         ("CH", "Challonge"),
+        ("M", "Manual"),
     ]
     id = models.CharField(max_length=20, primary_key=True)
     name = models.CharField(max_length=100)
